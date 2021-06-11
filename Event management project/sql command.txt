@@ -1,0 +1,44 @@
+use EMS_Project
+create table messaging (
+sender int,
+receiver int,
+messageTitle varchar(50),
+messageText varchar(1000));
+
+
+
+create table requests (
+reservationNum int primary key identity (1,1),
+HallName varchar(50),
+HallCapacity int,
+requestDate date,
+finalPrice int,
+eventType varchar(50),
+requestDateCondition varchar(50) default 'approved',
+reqStatus nvarchar(50) default 'pending',
+PM bit default 0,
+SP bit default 0,
+Eadmin bit default 1);
+alter table requests add cid int not null;
+alter table requests add constraint fk foreign key (cid) references users(id) on delete cascade 
+
+
+create table eventList (
+HallName varchar(50),
+eventType varchar(50),
+HallCapacity int,
+fromDate date,
+toDate date,
+estimatedPrice int,
+);
+
+create table users (
+id int primary key identity (1,1),
+fname varchar(50),
+lname varchar(50),
+email varchar(50) unique,
+uPassword varchar(50),
+role int default 1
+);
+alter table users
+add answer varchar(50) not null;
